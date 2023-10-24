@@ -1,0 +1,57 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: yt-dlp
+  namespace: seashell
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 2
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+          labels:
+            app: yt-dlp
+        spec:
+          containers:
+          - env:
+            - name: TZ
+              value: Europe/Oslo
+            image: registry.docker.com/bateau/yt-dlp:latest
+            imagePullPolicy: Always
+            name: yt-dlp
+            resources: {}
+            terminationMessagePath: /dev/termination-log
+            terminationMessagePolicy: File
+            volumeMounts:
+            - mountPath: /home/abc/yt-dlp
+              name: config
+            - mountPath: /library
+              name: library
+          # dnsConfig:
+          #   nameservers:
+          #   - 8.8.8.8
+          #   - 8.8.4.4
+          #   - 1.1.1.1
+          # dnsPolicy: None
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          restartPolicy: OnFailure
+          terminationGracePeriodSeconds: 480
+          volumes:
+          - hostPath:
+              path: /data/disk2/opt/youtube-dl
+              type: ""
+            name: config
+          - hostPath:
+              path: /data
+              type: ""
+            name: library
+  schedule: 0 */6 * * *
+  startingDeadlineSeconds: 360000
+  suspend: false
