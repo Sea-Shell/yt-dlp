@@ -51,7 +51,7 @@ jobs:
         with:
           oauth-client-id: ${{ secrets.TS_ACTION_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_ACTION_CLIENT_SECRET }}
-      - uses: Azure/k8s-set-context@v2
+      - uses: Azure/k8s-set-context@v3
         with:
             kubeconfig: ${{ secrets.K8S_KONFIG }}
       - uses: Azure/k8s-deploy@v4
