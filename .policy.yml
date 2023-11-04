@@ -26,8 +26,8 @@ approval_rules:
         teams:  
           - "Sea-Shell/seashell"
       author_is_only_contributor: true
-      requires:
-        count: 0
+    requires:
+      count: 0
     options:
       allow_author: false
       allow_contributor: false
