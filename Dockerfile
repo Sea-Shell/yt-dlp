@@ -24,5 +24,5 @@ RUN apk add ffmpeg
 USER 1000
 COPY --chown=1000:1000 --from=build /opt/yt-dlp /opt/yt-dlp
 
-# ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-# CMD ["/opt/yt-dlp/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["/opt/yt-dlp/entrypoint.sh"]
