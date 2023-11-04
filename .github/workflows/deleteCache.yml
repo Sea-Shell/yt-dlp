@@ -30,8 +30,6 @@ jobs:
           script: |
             const moment = require('moment');
             
-            const octokit = new Octokit({ auth: GITHUB_TOKEN });
-
             const owner = github.context.repo.owner;
             const repo = github.context.repo.repo; 
             const timeValue =  process.env.TIME ? process.env.TIME : "15d";
@@ -57,7 +55,7 @@ jobs:
             
             async function deleteStaleCaches() {
               try {
-                const { data: caches } = await octokit.actions.getActionsCacheList({
+                const { data: caches } = await octokit.rest.actions.getActionsCacheList({
                   owner,
                   repo,
                   per_page: 100
@@ -73,7 +71,7 @@ jobs:
                     console.debug(`Cache to be deleted: ${JSON.stringify(cache, null, 2)}`);
                     console.info("Cache ID: " + cache.id + " Date: " + (cacheLastAccessedAt ? cacheLastAccessedAt.format() : 'N/A') + " - " + staleThreshold.format());
                     
-                    deleteCache = await octokit.actions.deleteActionsCacheById({
+                    deleteCache = await octokit.rest.actions.deleteActionsCacheById({
                       owner,
                       repo,
                       cache_id: cache.id
