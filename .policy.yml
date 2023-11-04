@@ -26,8 +26,6 @@ approval_rules:
         teams:  
           - "Sea-Shell/seashell"
       author_is_only_contributor: true
-      targets_branch:
-        - "^(main)$"
       requires:
         count: 0
     options:
