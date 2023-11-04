@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4.1.1
-        
+
       - name: Node
         uses: actions/setup-node@v4.0.0
 
@@ -28,9 +28,6 @@ jobs:
           TIME: 3h
         with:
           script: |
-            const core = require('@actions/core');
-            const github = require('@actions/github');
-            const { Octokit } = require('@octokit/rest');
             const moment = require('moment');
             
             const octokit = new Octokit({ auth: GITHUB_TOKEN });
