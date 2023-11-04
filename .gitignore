@@ -1,0 +1,6 @@
+debug
+**.json
+*.pickle
+*.db
+*.log*
+*.js
