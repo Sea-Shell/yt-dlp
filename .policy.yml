@@ -17,7 +17,7 @@ approval_rules:
     description: A rule that requires status checks to be green
     if:
       has_successful_status:
-        - "Commit lint / lint / Commit lint"
+        - "lint / Commit lint"
   
   - name: seashell-auto-approval
     description: A rule that dont require approvals if from seashell
