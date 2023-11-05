@@ -30,8 +30,8 @@ jobs:
           script: |
             const moment = require('moment');
             
-            const owner = github.context.repo.owner;
-            const repo = github.context.repo.repo; 
+            const owner = context.repo.owner;
+            const repo = context.repo.repo; 
             const timeValue =  process.env.TIME ? process.env.TIME : "15d";
             
             const timeUnitMapping = {
