@@ -3,7 +3,7 @@ name: "Delete stale cache"
 on:
     workflow_dispatch:
     schedule:
-        - cron: '0 0 * * *'
+        - cron: '0 0/6 * * *'
 
 jobs:
   delete:
@@ -69,7 +69,6 @@ jobs:
             
                   if (cache.last_accessed_at && cacheLastAccessedAt && cacheLastAccessedAt.isBefore(staleThreshold)) {
                     console.debug(`Cache to be deleted: ${JSON.stringify(cache, null, 2)}`);
-                    console.info("Cache ID: " + cache.id + " Date: " + (cacheLastAccessedAt ? cacheLastAccessedAt.format() : 'N/A') + " - " + staleThreshold.format());
                     
                     deleteCache = await github.rest.actions.deleteActionsCacheById({
                       owner,
