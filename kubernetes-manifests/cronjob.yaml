@@ -22,7 +22,7 @@ spec:
             imagePullPolicy: Always
             name: yt-dlp
             volumeMounts:
-            - mountPath: /home/abc/yt-dlp
+            - mountPath: /opt/ytdlp/.config
               name: config
             - mountPath: /library
               name: library
@@ -34,7 +34,7 @@ spec:
           terminationGracePeriodSeconds: 480
           volumes:
           - hostPath:
-              path: /data/disk2/opt/youtube-dl
+              path: /data/disk2/opt/youtube-dl/.config
               type: ""
             name: config
           - hostPath:

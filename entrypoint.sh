@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -x
 
-pipenv -v run yt-dlp --config-locations ~/yt-dlp/.config/youtube-dl/config || exit 0
+pipenv -v run yt-dlp --config-locations ~/.config/youtube-dl/config || exit 0
