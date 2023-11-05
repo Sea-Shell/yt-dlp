@@ -25,7 +25,7 @@ jobs:
       - name: Delete Cache
         uses: actions/github-script@v6.4.1
         env:
-          TIME: 10m
+          TIME: 5d
         with:
           script: |
             const moment = require('moment');
