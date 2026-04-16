@@ -17,6 +17,7 @@
       "datasourceTemplate": "docker"
     }
   ],
+  "rebaseWhen": "behind-base-branch",
   "schedule": [
     "after 8am and before 4pm every weekday"
   ],
