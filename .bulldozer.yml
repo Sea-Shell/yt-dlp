@@ -1,4 +1,4 @@
 ---
-remote: nrkno/Sea-Shell-configs
+remote: Sea-Shell/seashell-configs
 path: bulldozer/bulldozer.yaml
 ref: main
