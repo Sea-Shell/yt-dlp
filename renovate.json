@@ -1,3 +1,9 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json"
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base"],
+  {
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all-minor-patch-updates",
+      "groupSlug": "all-non-major"
+  }
 }
