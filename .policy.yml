@@ -1,61 +1,96 @@
 ---
 policy:
   approval:
-    - and:
-      - status checks
-      - or:
-        - seashell-auto-approval
+    - or:
+        - pre-approved signatures
         - dependabot-patch
         - dependabot-minor
+        - and:
+            - default-review
+            - protected-files
   disapproval:
     requires:
       teams:
-        - "Sea-Shell/owners"
+        - "Sea-Shell/seashell"
 
 approval_rules:
-  - name: status checks
-    description: A rule that requires status checks to be green
-    if:
-      has_successful_status:
-        - "Commit lint / Commit lint"
-  
-  - name: seashell-auto-approval
-    description: A rule that dont require approvals if from seashell
-    if:
-      only_has_contributors_in:
-        teams:  
-          - "Sea-Shell/seashell"
-      author_is_only_contributor: true
-    requires:
-      count: 0
-    options:
-      allow_author: false
-      allow_contributor: false
-
-  - name: dependabot-patch
-    description: Rule to approve PR when label is patch, author is dependabot
+  - name: pre-approved signatures
+    description: Do not require approval if signed by team
     if:
       has_author_in:
-        users:
-          - "dependabot[bot]"
+        teams:
+          - "Sea-Shell/seashell"
+      has_valid_signatures: true
+      has_valid_signatures_by:
+        teams:
+          - "Sea-Shell/seashell"
+    options:
+      request_review:
+        enabled: false
+    requires:
+      count: 0
+
+  - name: dependabot-patch
+    description: Do not require approval for Dependabot patch update
+    if:
       author_is_only_contributor: true
+      has_author_in:
+        users:
+          - "sea-shell-renovate[bot]"
       has_labels:
         - "dependencies"
         - "patch"
       has_valid_signatures: true
+    options:
+      request_review:
+        enabled: false
     requires:
       count: 0
 
   - name: dependabot-minor
-    description: Rule to approve PR when label is minor, author is dependabot
+    description: Do not require approval for Dependabot minor update
     if:
+      author_is_only_contributor: true
       has_author_in:
         users:
-          - "dependabot[bot]"
-      author_is_only_contributor: true
+          - "sea-shell-renovate[bot]"
       has_labels:
         - "dependencies"
         - "minor"
       has_valid_signatures: true
+    options:
+      request_review:
+        enabled: false
     requires:
       count: 0
+
+  - name: default-review
+    description: Require approval by maintaining team
+    options:
+      request_review:
+        enabled: true
+        mode: teams
+    requires:
+      count: 1
+      permissions:
+        - "write"
+      teams:
+        - "Sea-Shell/seashell"
+
+  - name: protected-files
+    description: Require two approvals for protected files
+    if:
+      only_changed_files:
+        paths:
+          - ".policy.ya?ml$"
+          - ".bulldozer.ya?ml$"
+          - "renovate.ya?ml$"
+          - "^.github/.*$"
+    options:
+      request_review:
+        enabled: true
+        mode: teams
+    requires:
+      count: 1
+      teams:
+        - "Sea-Shell/seashell"
