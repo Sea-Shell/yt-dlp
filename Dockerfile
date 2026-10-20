@@ -1,4 +1,4 @@
-FROM python:3.15.0b3-alpine@sha256:c46e1b5012956890f42c4492c55cafde3ce675796854127cf93e9216f9f28f1a as base
+FROM python:3.15.0rc3-alpine@sha256:f288a00331ddad8ddf86aa9d83331f188d9a5b1999dea3762adf2af1968b0c04 as base
 
 RUN apk update && \
     apk add dumb-init && \
